@@ -1,0 +1,3 @@
+[submodule "colors/jellybeans"]
+	path = colors/jellybeans
+	url = https://github.com/nanotech/jellybeans.vim.git
