@@ -4,6 +4,6 @@
 [submodule "plugins/fugitive"]
 	path = plugins/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "plugins/pathogen"]
-	path = plugins/pathogen
+[submodule "lib/pathogen"]
+	path = lib/pathogen
 	url = https://github.com/tpope/vim-pathogen.git
