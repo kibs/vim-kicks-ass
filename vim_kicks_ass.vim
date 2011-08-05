@@ -84,11 +84,11 @@ endfunction
 function vim_kicks_ass#for_real()
     let bundles = []
     for plugin in values(s:plugins)
-        call add(bundles, "/plugins/" . plugin)
+        call add(bundles, "plugins/" . plugin)
     endfor
 
     if s:colorscheme != ""
-        call add(bundles, "/colors/" . s:colorscheme)
+        call add(bundles, "colors/" . s:colorscheme)
     endif
 
     call system(s:root . "/lib/setup.sh " . join(bundles, " "))
