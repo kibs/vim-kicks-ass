@@ -37,7 +37,7 @@ for bundle in $@; do
 done
 
 # make sure lib submodules is up-to-date
-git submodule update --recursive --init $toolbox/lib
+git submodule update --init $toolbox/lib/pathogen
 
 # make sure we have pathogen installed
 if [ ! -d $autoloadpath ]; then
