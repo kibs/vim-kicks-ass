@@ -1,0 +1,8 @@
+" which plugins to enable
+call vim_kicks_ass#with_plugins(["fugitive"])
+
+" which colorscheme to load and set
+call vim_kicks_ass#using_colorscheme("jellybeans")
+
+" kick it!
+call vim_kicks_ass#for_real()
