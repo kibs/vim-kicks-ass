@@ -7,3 +7,48 @@
 [submodule "lib/pathogen"]
 	path = lib/pathogen
 	url = https://github.com/tpope/vim-pathogen.git
+[submodule "plugins/endwise"]
+	path = plugins/endwise
+	url = https://github.com/tpope/vim-endwise.git
+[submodule "plugins/cucumber"]
+	path = plugins/cucumber
+	url = https://github.com/tpope/vim-cucumber.git
+[submodule "plugins/markdown"]
+	path = plugins/markdown
+	url = https://github.com/tpope/vim-markdown.git
+[submodule "colors/solarized"]
+	path = colors/solarized
+	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule "plugins/surround"]
+	path = plugins/surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule "plugins/supertab"]
+	path = plugins/supertab
+	url = https://github.com/ervandew/supertab.git
+[submodule "plugins/fuzzyfinder"]
+	path = plugins/fuzzyfinder
+	url = https://github.com/vim-scripts/FuzzyFinder.git
+[submodule "plugins/l9"]
+	path = plugins/l9
+	url = https://github.com/vim-scripts/L9.git
+[submodule "plugins/php-doc"]
+	path = plugins/php-doc
+	url = https://github.com/vim-scripts/PDV--phpDocumentor-for-Vim.git
+[submodule "plugins/snipmate"]
+	path = plugins/snipmate
+	url = https://github.com/msanders/snipmate.vim.git
+[submodule "plugins/nerdcommenter"]
+	path = plugins/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter.git
+[submodule "plugins/syntastic"]
+	path = plugins/syntastic
+	url = https://github.com/scrooloose/syntastic.git
+[submodule "plugins/tabular"]
+	path = plugins/tabular
+	url = https://github.com/godlygeek/tabular.git
+[submodule "plugins/autoclose"]
+	path = plugins/autoclose
+	url = https://github.com/Townk/vim-autoclose.git
+[submodule "plugins/ruby-debugger"]
+	path = plugins/ruby-debugger
+	url = https://github.com/astashov/vim-ruby-debugger.git
