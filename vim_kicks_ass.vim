@@ -92,7 +92,7 @@ function vim_kicks_ass#for_real()
     endif
 
     call system(s:root . "/lib/setup.sh " . join(bundles, " "))
-    " call pathogen#infect()
+    call pathogen#infect()
     " set colorscheme if a colorscheme is selected
     " source all selected keymaps
 endfunction
