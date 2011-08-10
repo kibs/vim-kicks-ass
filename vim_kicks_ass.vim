@@ -29,6 +29,14 @@ function vim_kicks_ass#without_plugins(plugins)
     call s:remove(s:listify(a:plugins), s:root.s:separator()."plugins")
 endfunction
 
+" load presets
+function vim_kicks_ass#using_presets(presets)
+    let sep = s:separator()
+    for preset in s:listify(a:presets)
+        execute ":source ".s:root.sep."presets".sep.preset.".vim"
+    endfor
+endfunction
+
 " set the colorscheme which should be loaded and used
 function vim_kicks_ass#using_colorschemes(schemes)
     call s:add(s:listify(a:schemes), s:root.s:separator()."colors", "colorscheme")

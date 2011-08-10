@@ -16,7 +16,7 @@ set nocompatible
 call vim_kicks_ass#with_plugins(["fugitive", "surround"])
 
 " you can also add a preset which is a compilation of plugins keymappings, options etc.
-call vim_kicks_ass#using_preset("ruby")
+call vim_kicks_ass#using_presets("ruby")
 
 " remove plugins which are previously added in a preset or in this file
 call vim_kicks_ass#without_plugins("ruby-debugger")
