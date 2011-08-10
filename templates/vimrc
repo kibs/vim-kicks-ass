@@ -1,5 +1,35 @@
-" which plugins to enable
-call vim_kicks_ass#with_plugins(["fugitive"])
+"        _                 _    _      _
+"       (_)               | |  (_)    | |
+" __   ___ _ __ ___ ______| | ___  ___| | _____ ______ __ _ ___ ___
+" \ \ / / | '_ ` _ \______| |/ / |/ __| |/ / __|______/ _` / __/ __|
+"  \ V /| | | | | | |     |   <| | (__|   <\__ \     | (_| \__ \__ \
+"   \_/ |_|_| |_| |_|     |_|\_\_|\___|_|\_\___/      \__,_|___/___/
+"
+"   This is a template for starting out your own vim configuration
+"                    please change to your needs.
+"
 
-" which colorscheme to load and set
-call vim_kicks_ass#using_colorscheme("jellybeans")
+" make sure we are in full Vim mode 
+set nocompatible
+
+" which plugins to enable, can be a list of plugins or a single string
+call vim_kicks_ass#with_plugins(["fugitive", "surround"])
+
+" you can also add a preset which is a compilation of plugins keymappings, options etc.
+call vim_kicks_ass#using_preset("ruby")
+
+" remove plugins which are previously added in a preset or in this file
+call vim_kicks_ass#without_plugins("ruby-debugger")
+
+" which colorschemes to load, use a list for loading multiple colorschemes
+call vim_kicks_ass#using_colorschemes("jellybeans")
+
+" don't forget to set colorscheme after it has been loaded
+colorscheme jellybeans
+
+" enable filetype specific plugins
+filetype on
+filetype plugin on
+filetype indent on
+
+" go crazy on custom keymappings, settings etc. the :help command is awesome!
