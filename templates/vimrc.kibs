@@ -1,0 +1,228 @@
+"        _                 _    _      _
+"       (_)               | |  (_)    | |
+" __   ___ _ __ ___ ______| | ___  ___| | _____ ______ __ _ ___ ___
+" \ \ / / | '_ ` _ \______| |/ / |/ __| |/ / __|______/ _` / __/ __|
+"  \ V /| | | | | | |     |   <| | (__|   <\__ \     | (_| \__ \__ \
+"   \_/ |_|_| |_| |_|     |_|\_\_|\___|_|\_\___/      \__,_|___/___/
+"
+"              .vimrc used by kibs (github.com/kibs)
+
+" ---------------------------------------------------
+" bootstrapping
+" ---------------------------------------------------
+set nocompatible " make sure we are in full Vim mode 
+
+" enable filetype specific plugins
+filetype on
+filetype plugin on
+filetype indent on
+
+set history=1000 " so we don't loose thoose commands
+
+" don't care for theese files
+set wildignore=*.swp,*.bak,*.pyc,*.class
+
+let mapleader ="," " instead of default \
+
+" ---------------------------------------------------
+" gui
+" ---------------------------------------------------
+syntax on
+set number " linenumbering
+set laststatus=2 " always show statusline
+set statusline=%F\ %y%([%R%M]%)\ %{SyntasticStatuslineFlag()}\ %=%{getcwd()}\ %{fugitive#statusline()}
+set visualbell
+set noerrorbells
+
+" only use fancy colorscheme if TERM supports many colors
+if $TERM == "xterm-256color" 
+    call vim_kicks_ass#using_colorschemes("jellybeans")
+    colorscheme jellybeans
+endif
+
+" macvim/gvim only stuff
+if has('gui_running')
+    set fuoptions=maxvert,maxhorz
+    set guifont=Monaco:h12
+    set guioptions-=T
+    set mouse=a
+endif
+
+" ---------------------------------------------------
+" windows, buffers and tabs
+" ---------------------------------------------------
+set switchbuf=useopen,usetab
+
+" new vertical split
+nnoremap <Leader>v :vsp^M^W^W<cr>
+" new horizontial split
+nnoremap <Leader>h :split^M^W^W<cr>
+" 
+
+" ---------------------------------------------------
+" indenting and typing
+" ---------------------------------------------------
+set nowrap
+set backspace=indent,eol,start
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+
+set expandtab
+set copyindent
+set shiftround
+set autoindent
+set smarttab
+
+set undolevels=1000
+
+" ---------------------------------------------------
+" swaps and backups
+" ---------------------------------------------------
+set nobackup 
+set noswapfile
+
+" ---------------------------------------------------
+" searching
+" ---------------------------------------------------
+set smartcase
+set hlsearch
+set incsearch
+nnoremap <CR> :nohls<CR><CR>
+
+" ---------------------------------------------------
+" tags
+" ---------------------------------------------------
+nnoremap <Leader>j <C-]>
+
+" ---------------------------------------------------
+" ruby
+" ---------------------------------------------------
+call vim_kicks_ass#using_presets("ruby")
+call vim_kicks_ass#without_plugins("ruby-debugger")
+
+" ---------------------------------------------------
+" python
+" ---------------------------------------------------
+call vim_kicks_ass#using_presets("python")
+
+" ---------------------------------------------------
+" php
+" ---------------------------------------------------
+call vim_kicks_ass#using_presets("php")
+
+" ---------------------------------------------------
+" plugin: fugitive
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("fugitive")
+
+nnoremap <silent> gl     :Glog<CR>
+nnoremap <silent> gs     :Gstatus<CR>
+nnoremap <silent> gc     :Gcommit<CR>
+nnoremap <silent> gr     :Gread<CR>
+nnoremap <silent> gw     :Gwrite<CR>
+nnoremap <silent> gd     :Gdiff<CR>
+nnoremap <silent> gb     :Gblame<CR>
+
+" ---------------------------------------------------
+" plugin: fuzzyfinder
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins(["l9","fuzzyfinder"])
+
+let g:fuf_buffertag_ctagsPath = 'ctags'
+let g:fuf_modesDisable = []
+let g:fuf_mrufile_maxItem = 100
+let g:fuf_mrucmd_maxItem = 100
+let g:fuf_buffertag__php = '--language-force=php --php-types=cf'
+
+nnoremap <silent> sj     :FufBuffer<CR>
+nnoremap <silent> sk     :FufFileWithCurrentBufferDir<CR>
+nnoremap <silent> sK     :FufFileWithFullCwd<CR>
+nnoremap <silent> s<C-k> :FufFile<CR>
+nnoremap <silent> sl     :FufCoverageFile<CR>
+nnoremap <silent> sL     :FufCoverageFileChange<CR>
+nnoremap <silent> s<C-l> :FufCoverageFileRegister<CR>
+nnoremap <silent> sd     :FufDirWithCurrentBufferDir<CR>
+nnoremap <silent> sD     :FufDirWithFullCwd<CR>
+nnoremap <silent> s<C-d> :FufDir<CR>
+nnoremap <silent> sn     :FufMruFile<CR>
+nnoremap <silent> sN     :FufMruFileInCwd<CR>
+nnoremap <silent> sm     :FufMruCmd<CR>
+nnoremap <silent> su     :FufBookmarkFile<CR>
+nnoremap <silent> s<C-u> :FufBookmarkFileAdd<CR>
+vnoremap <silent> s<C-u> :FufBookmarkFileAddAsSelectedText<CR>
+nnoremap <silent> si     :FufBookmarkDir<CR>
+nnoremap <silent> s<C-i> :FufBookmarkDirAdd<CR>
+nnoremap <silent> st     :FufTag<CR>
+nnoremap <silent> sT     :FufTag!<CR>
+nnoremap <silent> s<C-]> :FufTagWithCursorWord!<CR>
+nnoremap <silent> s,     :FufBufferTag<CR>
+nnoremap <silent> s<     :FufBufferTag!<CR>
+vnoremap <silent> s,     :FufBufferTagWithSelectedText!<CR>
+vnoremap <silent> s<     :FufBufferTagWithSelectedText<CR>
+nnoremap <silent> s}     :FufBufferTagWithCursorWord!<CR>
+nnoremap <silent> s.     :FufBufferTagAll<CR>
+nnoremap <silent> s>     :FufBufferTagAll!<CR>
+vnoremap <silent> s.     :FufBufferTagAllWithSelectedText!<CR>
+vnoremap <silent> s>     :FufBufferTagAllWithSelectedText<CR>
+nnoremap <silent> s]     :FufBufferTagAllWithCursorWord!<CR>
+nnoremap <silent> sg     :FufTaggedFile<CR>
+nnoremap <silent> sG     :FufTaggedFile!<CR>
+nnoremap <silent> so     :FufJumpList<CR>
+nnoremap <silent> sp     :FufChangeList<CR>
+nnoremap <silent> sq     :FufQuickfix<CR>
+nnoremap <silent> sy     :FufLine<CR>
+nnoremap <silent> sh     :FufHelp<CR>
+nnoremap <silent> se     :FufEditDataFile<CR>
+nnoremap <silent> sr     :FufRenewCache<CR>
+
+" ---------------------------------------------------
+" plugin: tabular
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("tabular")
+
+noremap <Leader>a= :Tabularize /=<CR>
+noremap <Leader>a: :Tabularize /:<CR>
+noremap <Leader>a<Bar> :Tabularize /<Bar><CR>
+
+" ---------------------------------------------------
+" plugin: autoclose
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("autoclose")
+
+" fix: some weird issues with arrowkeys using autoclose in console
+if !has("gui_running")
+    let g:AutoClosePreservDotReg = 0
+endif
+
+" ---------------------------------------------------
+" plugin: supertab
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("supertab")
+
+let g:SuperTabDefaultCompletionType = "context"
+
+" ---------------------------------------------------
+" plugin: syntastic
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("syntastic")
+
+let g:syntastic_disabled_filetypes = ["php","cucumber", "html", "javascript", "xhtml"]
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=1
+
+" ---------------------------------------------------
+" plugin: markdown
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("markdown")
+
+" ---------------------------------------------------
+" plugin: snipmate
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("snipmate")
+
+" ---------------------------------------------------
+" plugin: nerdcommenter
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("nerdcommenter")
