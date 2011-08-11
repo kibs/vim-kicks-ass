@@ -40,12 +40,13 @@ $ ln -s ~/.vim-kicks-ass/vim_kicks_ass.vim ~/.vim/autoload/vim_kicks_ass.vim
 $ cp ~/.vim-kicks-ass/templates/vimrc ~/.vimrc
 ```
 
-And you should be good to go. *important!* the first time you start vim, it can take some time depending on how many plugins you enabled
+And you should be good to go. The first time you start vim, it can take some time depending on how many plugins you enabled
 
 Upgrading
 ---------
 
 just goto your vim-kicks-ass folder and update using git
+
 ```
 $ cd ~/.vim-kicks-ass
 $ git pull
