@@ -33,7 +33,12 @@ endfunction
 function vim_kicks_ass#using_presets(presets)
     let sep = s:separator()
     for preset in s:listify(a:presets)
-        execute ":source ".s:root.sep."presets".sep.preset.".vim"
+        let path = s:root.sep."presets".sep.preset.".vim"
+        if glob(path) == ""
+            call s:msg("preset ".preset." not found")
+        else
+            execute ":source ".path
+        endif
     endfor
 endfunction
 
@@ -55,6 +60,11 @@ function s:listify(values)
     endif
 endfunction
 
+" tell user something
+function s:msg(message)
+    echo "[vim-kicks-ass] ".a:message
+endfunction
+
 " add dirs to runtimepath
 function s:add(dirs, root, type)
     let paths = s:split(&rtp)
@@ -62,7 +72,7 @@ function s:add(dirs, root, type)
     for dir in a:dirs
         let path = a:root.sep.dir
         if glob(path.sep."*") == ""
-            echo "[vim-kicks-ass] initializing ".a:type." ".dir
+            call s:msg("initializing ".a:type." ".dir)
             call system("cd ".s:root." && git submodule update --init ".path)
         endif
         if index(paths, path) == -1
