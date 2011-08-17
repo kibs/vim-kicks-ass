@@ -76,7 +76,7 @@ function s:add(dirs, root, type)
             call system("cd ".s:root." && git submodule update --init ".path)
         endif
         if index(paths, path) == -1
-            let paths = add(paths, path)
+            let paths = insert(paths, path)
         endif
     endfor
     let &rtp = s:join(paths)
