@@ -1,2 +1,2 @@
 " php-doc : helpers for creating phpdoc
-call vim_kicks_ass#with_plugins("php-doc")
+call vim_kicks_ass#with_plugins(["php-doc", "php-fix-html-indent"])
