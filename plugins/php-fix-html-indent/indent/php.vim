@@ -1,6 +1,5 @@
 " Better indent support for PHP by making it possible to indent HTML sections
 " as well.
-echo "sune"
 if exists("b:did_indent")
   finish
 endif
