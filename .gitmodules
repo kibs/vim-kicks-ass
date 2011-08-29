@@ -49,3 +49,6 @@
 [submodule "plugins/ruby-debugger"]
 	path = plugins/ruby-debugger
 	url = https://github.com/astashov/vim-ruby-debugger.git
+[submodule "plugins/javascript"]
+	path = plugins/javascript
+	url = https://github.com/pangloss/vim-javascript.git
