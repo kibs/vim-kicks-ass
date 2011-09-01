@@ -61,3 +61,6 @@
 [submodule "plugins/sparkup"]
 	path = plugins/sparkup
 	url = https://github.com/bingaman/vim-sparkup.git
+[submodule "plugins/mustache"]
+	path = plugins/mustache
+	url = git@github.com:valinorsgatekeeper/vim-kicks-ass.git
