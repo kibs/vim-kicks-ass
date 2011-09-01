@@ -1,0 +1,298 @@
+"        _                 _    _      _
+"       (_)               | |  (_)    | |
+" __   ___ _ __ ___ ______| | ___  ___| | _____ ______ __ _ ___ ___
+" \ \ / / | '_ ` _ \______| |/ / |/ __| |/ / __|______/ _` / __/ __|
+"  \ V /| | | | | | |     |   <| | (__|   <\__ \     | (_| \__ \__ \
+"   \_/ |_|_| |_| |_|     |_|\_\_|\___|_|\_\___/      \__,_|___/___/
+"
+"          .vimrc used by davidreuss (github.com/davidreuss)
+"
+"          -- based on template/vimrc.kibs
+
+" ---------------------------------------------------
+" bootstrapping
+" ---------------------------------------------------
+set nocompatible " make sure we are in full Vim mode
+set notitle " don't set title in my terminal
+
+" enable filetype specific plugins
+filetype on
+filetype plugin on
+filetype indent on
+
+" unix fileformat please
+set ff=unix
+
+set history=1000 " so we don't loose thoose commands
+
+let mapleader ="," " instead of default \
+
+" ---------------------------------------------------
+" gui
+" ---------------------------------------------------
+syntax on
+set number " linenumbering
+set laststatus=2 " always show statusline
+set statusline=%F\ %y%([%R%M]%)\ %{SyntasticStatuslineFlag()}\ %=%{getcwd()}\ %{fugitive#statusline()}
+set noerrorbells
+
+" Easily modify ~/.vimrc
+nmap <leader>v :e $MYVIMRC<CR>
+
+
+" only use fancy colorscheme if TERM supports many colors
+if $TERM == "xterm-256color"
+    call vim_kicks_ass#using_colorschemes("jellybeans")
+    colorscheme jellybeans
+endif
+
+" macvim/gvim only stuff
+if has('gui_running')
+    set guioptions-=T
+    set gfn=Monaco:h12
+endif
+
+" ---------------------------------------------------
+" windows, buffers and tabs
+" ---------------------------------------------------
+
+" don't be such a bitch with hidden buffers
+set hidden
+
+" show partial commands as i'm typing
+set showcmd
+
+" show mode if not in normal mode
+set showmode
+
+" don't jump to start of line when scrolling
+set nostartofline
+
+" keep 3 lines of context
+set scrolloff=3
+
+" amount of lines to scroll when jumping off screen
+set scrolljump=5
+
+" don't care for theese files
+set wildignore=*.swp,*.bak,*.pyc,*.class
+
+" show menu with completions
+set wildmenu
+
+" complete like in terminal
+set wildmode=list:longest,full
+
+" switching tabs on shift+arrows
+map <s-Right> :tabn<CR>
+map <s-Left> :tabp<CR>
+
+" ---------------------------------------------------
+" indenting and typing
+" ---------------------------------------------------
+set nowrap
+set backspace=indent,eol,start
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+
+set expandtab
+set copyindent
+set shiftround
+set autoindent
+set smarttab
+
+set undolevels=1000
+
+" jj to the escape
+inoremap jj <ESC>
+
+" fly around in normal mode
+" set virtualedit=all
+
+" ,w to open a new split and focus it
+nnoremap <leader>w <C-w>v<C-w>l
+
+" easily move around in splits, with C-<movement>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" give me my osx/emacs style shortcuts
+map <C-A> <Home>
+map <C-E> <End>
+map! <C-A> <Home>
+map! <C-E> <End>
+map! <C-G> <Esc>
+map <C-G> <Esc>
+
+" ---------------------------------------------------
+" swaps and backups
+" ---------------------------------------------------
+set nobackup
+set noswapfile
+
+" detects writes to a file outside of vim
+set autoread
+
+" ---------------------------------------------------
+" searching
+" ---------------------------------------------------
+set smartcase
+set hlsearch
+set incsearch
+nnoremap <CR> :nohls<CR><CR>
+nnoremap <Leader><space> :noh<CR>
+
+" ---------------------------------------------------
+" invisibles
+" ---------------------------------------------------
+set nolist
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
+
+" ,W deletes all trailing whitespace in the file
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+" When pressing <leader>cd switch to the directory of the open buffer
+map <leader>cd :cd %:p:h<CR>
+
+" ---------------------------------------------------
+" tags
+" ---------------------------------------------------
+nnoremap <Leader>j <C-]>
+
+" ---------------------------------------------------
+" crazies
+" ---------------------------------------------------
+if has("autocmd")
+  augroup myvimrchooks
+    au!
+    autocmd bufwritepost .vimrc source ~/.vimrc
+    "autocmd bufenter * lcd %:p:h " change dir to current files directory
+  augroup END
+  au FocusLost * :wa
+endif
+
+" toggle paste/nopaste with f2
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+          \ | wincmd p | diffthis
+endif
+
+" forgot sudo?
+cmap w!! w !sudo tee % >/dev/null
+
+set lazyredraw
+
+" ---------------------------------------------------
+" ruby
+" ---------------------------------------------------
+call vim_kicks_ass#using_presets("ruby")
+call vim_kicks_ass#without_plugins("ruby-debugger")
+
+" ---------------------------------------------------
+" python
+" ---------------------------------------------------
+call vim_kicks_ass#using_presets("python")
+
+" ---------------------------------------------------
+" php
+" ---------------------------------------------------
+call vim_kicks_ass#using_presets("php")
+
+" run current buffer in interpreter
+autocmd FileType php noremap <leader>r :w!<CR>:!php %<CR>
+
+" ---------------------------------------------------
+" plugin: fugitive
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("fugitive")
+
+nnoremap <silent> gl     :Glog<CR>
+nnoremap <silent> gs     :Gstatus<CR>
+nnoremap <silent> gc     :Gcommit<CR>
+nnoremap <silent> gr     :Gread<CR>
+nnoremap <silent> gw     :Gwrite<CR>
+nnoremap <silent> gd     :Gdiff<CR>
+nnoremap <silent> gb     :Gblame<CR>
+
+" ---------------------------------------------------
+" plugin: fuzzyfinder
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins(["l9","fuzzyfinder"])
+
+let g:fuf_buffertag_ctagsPath = 'ctags'
+let g:fuf_modesDisable = []
+let g:fuf_mrufile_maxItem = 100
+let g:fuf_mrucmd_maxItem = 100
+let g:fuf_buffertag__php = '--language-force=php --php-types=cf'
+
+nnoremap <silent> fb    :FufBuffer<CR>
+nnoremap <silent> fc    :FufFileWithCurrentBufferDir<CR>
+
+" ---------------------------------------------------
+" plugin: tabular
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("tabular")
+
+noremap <Leader>a= :Tabularize /=<CR>
+noremap <Leader>a: :Tabularize /:<CR>
+noremap <Leader>a<Bar> :Tabularize /<Bar><CR>
+
+" ---------------------------------------------------
+" plugin: autoclose
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("autoclose")
+
+" fix: some weird issues with arrowkeys using autoclose in console
+if !has("gui_running")
+    let g:AutoClosePreservDotReg = 0
+endif
+
+" ---------------------------------------------------
+" plugin: supertab
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("supertab")
+
+let g:SuperTabDefaultCompletionType = "context"
+
+" ---------------------------------------------------
+" plugin: syntastic
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("syntastic")
+
+let g:syntastic_disabled_filetypes = ["php","cucumber", "html", "javascript", "xhtml"]
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=1
+
+" ---------------------------------------------------
+" plugin: markdown
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("markdown")
+
+" ---------------------------------------------------
+" plugin: snipmate
+" ---------------------------------------------------
+" call vim_kicks_ass#with_plugins("snipmate")
+
+" ---------------------------------------------------
+" plugin: nerdcommenter
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("nerdcommenter")
+
+" ---------------------------------------------------
+" plugin: easymotion
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("easymotion")
+
+" ---------------------------------------------------
+" plugin: sparkup
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("sparkup")
