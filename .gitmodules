@@ -55,3 +55,6 @@
 [submodule "plugins/taglist"]
 	path = plugins/taglist
 	url = https://github.com/vim-scripts/taglist.vim.git
+[submodule "plugins/mustache"]
+	path = plugins/mustache
+	url = https://github.com/juvenn/mustache.vim.git
