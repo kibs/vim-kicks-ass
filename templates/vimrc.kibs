@@ -226,3 +226,9 @@ call vim_kicks_ass#with_plugins("snipmate")
 " plugin: nerdcommenter
 " ---------------------------------------------------
 call vim_kicks_ass#with_plugins("nerdcommenter")
+
+" ---------------------------------------------------
+" plugin: easymotion
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("easymotion")
+let g:EasyMotion_leader_key = 'm'
