@@ -232,3 +232,13 @@ call vim_kicks_ass#with_plugins("nerdcommenter")
 " ---------------------------------------------------
 call vim_kicks_ass#with_plugins("easymotion")
 let g:EasyMotion_leader_key = 'm'
+
+" ---------------------------------------------------
+" plugin: sparkup
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("sparkup")
+
+" ---------------------------------------------------
+" plugin: json
+" ---------------------------------------------------
+call vim_kicks_ass#with_plugins("json")
