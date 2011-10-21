@@ -113,6 +113,11 @@ call vim_kicks_ass#using_presets("python")
 call vim_kicks_ass#using_presets("php")
 
 " ---------------------------------------------------
+" drupal
+" ---------------------------------------------------
+call vim_kicks_ass#using_presets("drupal")
+
+" ---------------------------------------------------
 " plugin: fugitive
 " ---------------------------------------------------
 call vim_kicks_ass#with_plugins("fugitive")
