@@ -213,7 +213,7 @@ let g:SuperTabDefaultCompletionType = "context"
 " ---------------------------------------------------
 call vim_kicks_ass#with_plugins("syntastic")
 
-let g:syntastic_disabled_filetypes = ["php","cucumber", "html", "javascript", "xhtml"]
+let g:syntastic_disabled_filetypes = ["cucumber", "html", "javascript", "xhtml"]
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
 
