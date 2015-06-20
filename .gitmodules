@@ -85,3 +85,12 @@
 [submodule "plugins/js-jquery-doc"]
 	path = plugins/js-jquery-doc
 	url = https://github.com/lucapette/vim-jquery-doc.git
+[submodule "plugins/easytags"]
+	path = plugins/easytags
+	url = https://github.com/xolox/vim-easytags
+[submodule "misc"]
+	path = misc
+	url = https://github.com/xolox/vim-misc
+[submodule "plugins/misc"]
+	path = plugins/misc
+	url = https://github.com/xolox/vim-misc.git
