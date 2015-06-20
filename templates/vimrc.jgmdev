@@ -19,8 +19,12 @@ filetype plugin on
 filetype indent on
 
 " which plugins to enable, can be a list of plugins or a single string
+call vim_kicks_ass#with_plugins(["misc","easytags"])
 call vim_kicks_ass#with_plugins(["fugitive", "surround", "markdown"])
 call vim_kicks_ass#with_plugins(["autoclose","nerdcommenter","tabular"])
+
+" Enable non blocking tags generation
+let g:easytags_async = 1
 
 " fix: some weird issues with arrowkeys using autoclose in console
 if !has("gui_running")
