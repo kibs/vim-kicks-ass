@@ -7,6 +7,7 @@ nnoremap <Leader>pd :PhpDoc<CR>
 
 " php-complete : autocompletion support
 call vim_kicks_ass#with_plugins(["php-complete"])
+let g:phpcomplete_parse_docblock_comments = 1
 
 " enable code completion support
 set omnifunc=syntaxcomplete#Complete
