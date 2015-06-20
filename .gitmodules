@@ -67,3 +67,21 @@
 [submodule "plugins/coffee-script"]
 	path = plugins/coffee-script
 	url = https://github.com/kchmck/vim-coffee-script.git
+[submodule "plugins/php-namespace"]
+	path = plugins/php-namespace
+	url = https://github.com/arnaud-lb/vim-php-namespace.git
+[submodule "plugins/php-cs-fixer"]
+	path = plugins/php-cs-fixer
+	url = https://github.com/stephpy/vim-php-cs-fixer.git
+[submodule "plugins/php-complete"]
+	path = plugins/php-complete
+	url = https://github.com/shawncplus/phpcomplete.vim.git
+[submodule "plugins/cpp-complete"]
+	path = plugins/cpp-complete
+	url = https://github.com/vim-scripts/OmniCppComplete.git
+[submodule "plugins/js-jquery"]
+	path = plugins/js-jquery
+	url = https://github.com/itspriddle/vim-jquery.git
+[submodule "plugins/js-jquery-doc"]
+	path = plugins/js-jquery-doc
+	url = https://github.com/lucapette/vim-jquery-doc.git
