@@ -57,7 +57,7 @@
 	url = https://github.com/vim-scripts/taglist.vim.git
 [submodule "plugins/easymotion"]
 	path = plugins/easymotion
-	url = https://github.com/Lokaltog/vim-easymotion
+	url = https://github.com/Lokaltog/vim-easymotion.git
 [submodule "plugins/sparkup"]
 	path = plugins/sparkup
 	url = https://github.com/bingaman/vim-sparkup.git
@@ -87,10 +87,13 @@
 	url = https://github.com/lucapette/vim-jquery-doc.git
 [submodule "plugins/easytags"]
 	path = plugins/easytags
-	url = https://github.com/xolox/vim-easytags
-[submodule "misc"]
-	path = misc
-	url = https://github.com/xolox/vim-misc
+	url = https://github.com/xolox/vim-easytags.git
 [submodule "plugins/misc"]
 	path = plugins/misc
 	url = https://github.com/xolox/vim-misc.git
+[submodule "plugins/autocomplpop"]
+	path = plugins/autocomplpop
+	url = https://github.com/othree/vim-autocomplpop.git
+[submodule "plugins/neocomplete"]
+	path = plugins/neocomplete
+	url = https://github.com/Shougo/neocomplete.vim.git

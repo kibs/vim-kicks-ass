@@ -1,4 +1,3 @@
-"        _                 _    _      _
 "       (_)               | |  (_)    | |
 " __   ___ _ __ ___ ______| | ___  ___| | _____ ______ __ _ ___ ___
 " \ \ / / | '_ ` _ \______| |/ / |/ __| |/ / __|______/ _` / __/ __|
@@ -19,7 +18,7 @@ filetype plugin on
 filetype indent on
 
 " which plugins to enable, can be a list of plugins or a single string
-call vim_kicks_ass#with_plugins(["misc","easytags", "taglist"])
+call vim_kicks_ass#with_plugins(["misc","easytags", "taglist","l9","autocomplpop"])
 call vim_kicks_ass#with_plugins(["fugitive", "surround", "markdown"])
 call vim_kicks_ass#with_plugins(["autoclose","nerdcommenter","tabular"])
 
@@ -39,7 +38,6 @@ call vim_kicks_ass#using_presets("javascript")
 
 " load colorscheme
 call vim_kicks_ass#using_colorschemes("jellybeans")
-colorscheme jellybeans
 
 " editing options
 syntax on
@@ -63,10 +61,10 @@ set noerrorbells
 set nobackup 
 set noswapfile
 
-" override line number color
+" override line number color to fix jellybeans issues
 highlight LineNr ctermfg=Gray
 
-" override text selection color
+" override text selection color to fix jellybeans issues
 highlight Visual ctermbg=DarkGreen ctermfg=White
 
 " display a right margin
@@ -78,19 +76,23 @@ set omnifunc=syntaxcomplete#Complete
 
 " bind omni complete to ctrl + space
 function! Auto_complete_string()
-    if pumvisible()
-        return "\<C-n>"
-    else
-        return "\<C-x>\<C-o>\<C-r>=Auto_complete_opened()\<CR>"
-    end
-endfunction
-
-function! Auto_complete_opened()
-    if pumvisible()
-        return "\<Down>"
-    end
-    return ""
+    return "\<C-x>\<C-o>"
 endfunction
 
 inoremap <expr> <Nul> Auto_complete_string()
 inoremap <expr> <C-Space> Auto_complete_string()
+
+" set colorscheme
+colorscheme darkblue
+
+" set key bindings
+let maplocalleader = ","
+
+nnoremap <LocalLeader>s :TlistToggle<CR>
+nnoremap <LocalLeader>j <C-]>
+nnoremap <LocalLeader>jh <C-W><C-]>
+nnoremap <LocalLeader>d :PhpDoc<CR>
+nnoremap <LocalLeader><Pageup> :tabp<CR>
+nnoremap <LocalLeader><Pagedown> :tabn<CR>
+nnoremap <LocalLeader>sq :wq<CR>
+nnoremap <LocalLeader>q :q!<CR>
