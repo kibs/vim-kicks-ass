@@ -19,7 +19,7 @@ filetype plugin on
 filetype indent on
 
 " which plugins to enable, can be a list of plugins or a single string
-call vim_kicks_ass#with_plugins(["misc","easytags"])
+call vim_kicks_ass#with_plugins(["misc","easytags", "taglist"])
 call vim_kicks_ass#with_plugins(["fugitive", "surround", "markdown"])
 call vim_kicks_ass#with_plugins(["autoclose","nerdcommenter","tabular"])
 
