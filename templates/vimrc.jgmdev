@@ -18,9 +18,14 @@ filetype plugin on
 filetype indent on
 
 " which plugins to enable, can be a list of plugins or a single string
-call vim_kicks_ass#with_plugins(["misc","easytags", "taglist","l9","autocomplpop"])
-call vim_kicks_ass#with_plugins(["fugitive", "surround", "markdown"])
+call vim_kicks_ass#with_plugins(["misc","easytags","taglist"])
+call vim_kicks_ass#with_plugins(["l9","autocomplpop","syntastic"])
+call vim_kicks_ass#with_plugins(["fugitive","surround","markdown"])
 call vim_kicks_ass#with_plugins(["autoclose","nerdcommenter","tabular"])
+
+" syntastic options
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=1
 
 " Enable non blocking tags generation
 let g:easytags_async = 1
