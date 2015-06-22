@@ -65,6 +65,7 @@ set visualbell
 set noerrorbells
 set nobackup 
 set noswapfile
+set hlsearch
 
 " override line number color to fix jellybeans issues
 highlight LineNr ctermfg=Gray
