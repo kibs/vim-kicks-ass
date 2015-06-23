@@ -97,3 +97,6 @@
 [submodule "plugins/neocomplete"]
 	path = plugins/neocomplete
 	url = https://github.com/Shougo/neocomplete.vim.git
+[submodule "plugins/html5"]
+	path = plugins/html5
+	url = https://github.com/othree/html5.vim.git

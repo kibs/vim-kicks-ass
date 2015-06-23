@@ -21,7 +21,11 @@ filetype indent on
 call vim_kicks_ass#with_plugins(["misc","easytags","taglist"])
 call vim_kicks_ass#with_plugins(["l9","autocomplpop","syntastic"])
 call vim_kicks_ass#with_plugins(["fugitive","surround","markdown"])
-call vim_kicks_ass#with_plugins(["autoclose","nerdcommenter","tabular"])
+call vim_kicks_ass#with_plugins(["html5","nerdcommenter","tabular"])
+
+" easytags options to disable features that affect peformance
+let g:easytags_syntax_keyword = 'always'
+let b:easytags_auto_highlight = 0
 
 " syntastic options
 let g:syntastic_enable_signs=1
@@ -43,9 +47,11 @@ call vim_kicks_ass#using_presets("javascript")
 
 " load colorscheme
 call vim_kicks_ass#using_colorschemes("jellybeans")
+call vim_kicks_ass#using_colorschemes("molokai")
 
 " editing options
 syntax on
+set t_Co=256 " enable more colors for schemes that require them.
 set ff=unix
 set nowrap
 set backspace=indent,eol,start
@@ -55,7 +61,7 @@ set shiftwidth=4
 set expandtab
 set copyindent
 set shiftround
-set autoindent
+"set autoindent
 set smarttab
 set undolevels=1000
 set number " linenumbering
@@ -66,6 +72,12 @@ set noerrorbells
 set nobackup 
 set noswapfile
 set hlsearch
+set cursorline
+
+" improve performance
+set nocursorcolumn
+set norelativenumber
+syntax sync minlines=500
 
 " override line number color to fix jellybeans issues
 highlight LineNr ctermfg=Gray
@@ -89,7 +101,7 @@ inoremap <expr> <Nul> Auto_complete_string()
 inoremap <expr> <C-Space> Auto_complete_string()
 
 " set colorscheme
-colorscheme darkblue
+colorscheme molokai
 
 " set key bindings
 let maplocalleader = ","
