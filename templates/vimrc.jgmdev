@@ -111,8 +111,9 @@ nnoremap <LocalLeader>s :TlistToggle<CR>
 nnoremap <LocalLeader>j <C-]>
 nnoremap <LocalLeader>jh <C-W><C-]>
 nnoremap <LocalLeader>d :PhpDoc<CR>
-nnoremap <LocalLeader><Pageup> :tabp<CR>
-nnoremap <LocalLeader><Pagedown> :tabn<CR>
+nnoremap <LocalLeader>e :Explore<CR>
+nnoremap <LocalLeader>[ :tabp<CR>
+nnoremap <LocalLeader>] :tabn<CR>
 nnoremap <LocalLeader>sq :wq<CR>
 nnoremap <LocalLeader>q :q!<CR>
 
