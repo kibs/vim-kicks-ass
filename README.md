@@ -8,8 +8,8 @@ colorschemes and custom made presets, which can be enabled or disabled easily us
 vim-kicks-ass plugin. You will also find templates which you can use as your own vimrc, or you can
 use them for inspiration for creating your own.
 
-My inspiration comes from the great [oh-my-zsh](https://github.com/robbyrussel/oh-my-zsh) project, where a lot of
-people has forked, contributed and otherwise helped creating a great framework for configuring zshell. I 
+My inspiration comes from the great [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) project, where a lot of
+people has forked, contributed and otherwise helped creating a great framework for configuring zshell. I
 wan't the same for VIM.
 
 I am not the greatest vimscript developer, nor am I the most advanced superuser of VIM, but with help from
