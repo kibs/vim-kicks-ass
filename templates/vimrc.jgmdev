@@ -114,3 +114,7 @@ nnoremap <LocalLeader><Pageup> :tabp<CR>
 nnoremap <LocalLeader><Pagedown> :tabn<CR>
 nnoremap <LocalLeader>sq :wq<CR>
 nnoremap <LocalLeader>q :q!<CR>
+
+" auto commands
+autocmd BufWritePre * :%s/\s\+$//e " strip trailing spaces
+autocmd BufWritePre * :retab " convert tabs to spaces
