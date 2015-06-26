@@ -103,3 +103,6 @@
 [submodule "plugins/closetag"]
 	path = plugins/closetag
 	url = https://github.com/docunext/closetag.vim.git
+[submodule "plugins/detectindent"]
+	path = plugins/detectindent
+	url = https://github.com/ciaranm/detectindent

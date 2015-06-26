@@ -22,31 +22,32 @@ call vim_kicks_ass#with_plugins(["misc","easytags","taglist"])
 call vim_kicks_ass#with_plugins(["l9","autocomplpop","syntastic"])
 call vim_kicks_ass#with_plugins(["fugitive","surround","markdown"])
 call vim_kicks_ass#with_plugins(["html5","nerdcommenter","tabular"])
-call vim_kicks_ass#with_plugins("closetag")
+call vim_kicks_ass#with_plugins(["closetag","detectindent"])
 
-" easytags options to disable features that affect peformance
+" easytags options to enable/disable features that affect peformance
 let g:easytags_syntax_keyword = 'always'
 let b:easytags_auto_highlight = 0
+let g:easytags_async = 1
 
 " syntastic options
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
 
-" Enable non blocking tags generation
-let g:easytags_async = 1
+" detectindent options
+let g:detectindent_preferred_expandtab = 1
+let g:detectindent_preferred_indent = 4
+let g:detectindent_preferred_when_mixed = 1
 
 " fix: some weird issues with arrowkeys using autoclose in console
 if !has("gui_running")
     let g:AutoClosePreservDotReg = 0
 endif
 
-" load php preset
+" load presets
 call vim_kicks_ass#using_presets("php")
-
-" load javascript preset
 call vim_kicks_ass#using_presets("javascript")
 
-" load colorscheme
+" load colorschemes
 call vim_kicks_ass#using_colorschemes("jellybeans")
 call vim_kicks_ass#using_colorschemes("molokai")
 
@@ -68,8 +69,8 @@ set undolevels=1000
 set number " linenumbering
 set laststatus=2 " always show statusline
 set statusline=%F\ %y%([%R%M]%)\ %{SyntasticStatuslineFlag()}\ %=%{getcwd()}\ %{fugitive#statusline()}
-set visualbell
-set noerrorbells
+"set visualbell
+"set noerrorbells
 set nobackup
 set noswapfile
 set hlsearch
@@ -101,7 +102,7 @@ endfunction
 inoremap <expr> <Nul> Auto_complete_string()
 inoremap <expr> <C-Space> Auto_complete_string()
 
-" set colorscheme
+" set default colorscheme
 colorscheme molokai
 
 " set key bindings
@@ -120,3 +121,4 @@ nnoremap <LocalLeader>q :q!<CR>
 " auto commands
 autocmd BufWritePre * :%s/\s\+$//e " strip trailing spaces
 autocmd BufWritePre * :retab " convert tabs to spaces
+autocmd BufReadPost * :DetectIndent
