@@ -100,3 +100,6 @@
 [submodule "plugins/html5"]
 	path = plugins/html5
 	url = https://github.com/othree/html5.vim.git
+[submodule "plugins/closetag"]
+	path = plugins/closetag
+	url = https://github.com/docunext/closetag.vim.git

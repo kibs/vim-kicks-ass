@@ -9,7 +9,7 @@
 "          -- based on template/vimrc
 "          -- based on template/vimrc.kibs
 
-" make sure we are in full Vim mode 
+" make sure we are in full Vim mode
 set nocompatible
 
 " enable filetype specific plugins
@@ -22,6 +22,7 @@ call vim_kicks_ass#with_plugins(["misc","easytags","taglist"])
 call vim_kicks_ass#with_plugins(["l9","autocomplpop","syntastic"])
 call vim_kicks_ass#with_plugins(["fugitive","surround","markdown"])
 call vim_kicks_ass#with_plugins(["html5","nerdcommenter","tabular"])
+call vim_kicks_ass#with_plugins("closetag")
 
 " easytags options to disable features that affect peformance
 let g:easytags_syntax_keyword = 'always'
@@ -69,7 +70,7 @@ set laststatus=2 " always show statusline
 set statusline=%F\ %y%([%R%M]%)\ %{SyntasticStatuslineFlag()}\ %=%{getcwd()}\ %{fugitive#statusline()}
 set visualbell
 set noerrorbells
-set nobackup 
+set nobackup
 set noswapfile
 set hlsearch
 set cursorline
