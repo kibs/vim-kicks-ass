@@ -80,6 +80,8 @@ set cursorline
 set nocursorcolumn
 set norelativenumber
 syntax sync minlines=500
+let g:loaded_matchparen=1
+set regexpengine=1 " seems to improve performance with cursorline
 
 " override line number color to fix jellybeans issues
 highlight LineNr ctermfg=Gray
