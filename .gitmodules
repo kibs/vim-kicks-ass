@@ -121,3 +121,6 @@
 [submodule "plugins/vim-json"]
 	path = plugins/vim-json
 	url = https://git::@github.com/elzr/vim-json.git
+[submodule "plugins/mustache"]
+	path = plugins/mustache
+	url = https://github.com/mustache/vim-mustache-handlebars.git
