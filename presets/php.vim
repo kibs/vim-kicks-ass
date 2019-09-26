@@ -6,11 +6,9 @@ com! -nargs=0 -bang PhpDoc call PhpDoc()
 nnoremap <Leader>pd :PhpDoc<CR>
 
 " php-complete : autocompletion support
-call vim_kicks_ass#with_plugins(["php-complete"])
+" enable php-complete for newer code completion code base
+"call vim_kicks_ass#with_plugins(["php-complete"])
 let g:phpcomplete_parse_docblock_comments = 1
-
-" enable code completion support
-set omnifunc=syntaxcomplete#Complete
 
 " php-cs-fixer : format source code using PHP Coding Standards
 call vim_kicks_ass#with_plugins(["php-cs-fixer"])
