@@ -7,7 +7,7 @@ nnoremap <Leader>d :PhpDoc<CR>
 
 " php-complete : autocompletion support
 " enable php-complete for newer code completion code base
-"call vim_kicks_ass#with_plugins(["php-complete"])
+call vim_kicks_ass#with_plugins(["php-complete"])
 let g:phpcomplete_parse_docblock_comments = 1
 
 if !executable("php-cs-fixer")
