@@ -106,3 +106,15 @@
 [submodule "plugins/detectindent"]
 	path = plugins/detectindent
 	url = https://github.com/ciaranm/detectindent
+[submodule "plugins/fzf.vim"]
+	path = plugins/fzf.vim
+	url = https://git::@github.com/junegunn/fzf.vim.git
+[submodule "plugins/lightline.vim"]
+	path = plugins/lightline.vim
+	url = https://git::@github.com/itchyny/lightline.vim.git
+[submodule "plugins/nerdtree"]
+	path = plugins/nerdtree
+	url = https://git::@github.com/scrooloose/nerdtree.git
+[submodule "colors/onedark.vim"]
+	path = colors/onedark.vim
+	url = https://git::@github.com/joshdick/onedark.vim.git
