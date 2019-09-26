@@ -73,7 +73,9 @@ function vim_kicks_ass#update_all()
   echo system(
     \ "cd ".s:root.
     \ " && ".
-    \ "git submodule foreach git pull origin master"
+    \ "git submodule foreach git pull origin master".
+    \ " && ".
+    \ "git submodule foreach git checkout master"
     \ )
 endfunction
 
