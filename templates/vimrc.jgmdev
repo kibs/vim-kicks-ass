@@ -24,8 +24,8 @@ if !executable("git")
   echo "Remember to install git."
 endif
 
-if !executable("ctags")
-  echo "Remember to install for autocomplete support."
+if !executable("ctags") && !executable("phpctags")
+  echo "Remember to install phpctags or ctags for autocomplete support."
 endif
 
 if !executable("fzf") || !executable("rg")
@@ -36,7 +36,7 @@ endif
 " LOAD PLUGINS
 " -------------------------------------------------------
 call vim_kicks_ass#with_plugins([
-  \ "misc", "easytags", "taglist",
+  \ "misc", "taglist",
   \ "l9", "autocomplpop", "syntastic",
   \ "fugitive", "autoclose", "markdown",
   \ "html5", "nerdcommenter", "tabular",
@@ -56,6 +56,7 @@ let g:acp_behaviorKeywordLength = 1 " keyword autocomplete with 1 character
 
 " easytags options to enable/disable features that affect peformance
 let g:easytags_syntax_keyword = 'auto' " Use auto or always (faster)
+let g:easytags_auto_update = 1
 let g:easytags_auto_highlight = 1
 let g:easytags_async = 1
 set tags=./tags; " project tags file
@@ -128,24 +129,12 @@ set shiftround
 set smartindent
 set smarttab
 set undolevels=100000
-set number " linenumbering
-set laststatus=2 " always show statusline
-"set statusline=%F\ %y%([%R%M]%)\ %{SyntasticStatuslineFlag()}\ %=%{getcwd()}\ %{fugitive#statusline()}
-"set visualbell
-"set noerrorbells
+set number             " linenumbering
+set laststatus=2       " always show statusline
 set hlsearch
 set cursorline
 set relativenumber
-
-" override line number color to fix jellybeans issues
-"highlight LineNr ctermfg=Gray
-
-" override text selection color to fix jellybeans issues
-"highlight Visual ctermbg=DarkGreen ctermfg=White
-
-" display a right margin
-set colorcolumn=81 " position
-"highlight ColorColumn ctermbg=White " set custom color for margin
+set colorcolumn=81     " right margin position
 
 " -------------------------------------------------------
 " KEY BINDINGS
