@@ -118,3 +118,9 @@
 [submodule "colors/onedark.vim"]
 	path = colors/onedark.vim
 	url = https://git::@github.com/joshdick/onedark.vim.git
+[submodule "plugins/vim-polyglot"]
+	path = plugins/vim-polyglot
+	url = https://git::@github.com/sheerun/vim-polyglot.git
+[submodule "plugins/vim-json"]
+	path = plugins/vim-json
+	url = https://git::@github.com/elzr/vim-json.git
