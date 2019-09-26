@@ -15,19 +15,52 @@ set nocompatible
 " enable filetype specific plugins
 filetype on
 filetype plugin on
-filetype indent on
+filetype indent off " disable annoying auto indentation
 
-" which plugins to enable, can be a list of plugins or a single string
-call vim_kicks_ass#with_plugins(["misc","easytags","taglist"])
-call vim_kicks_ass#with_plugins(["l9","autocomplpop","syntastic"])
-call vim_kicks_ass#with_plugins(["fugitive","surround","markdown"])
-call vim_kicks_ass#with_plugins(["html5","nerdcommenter","tabular"])
-call vim_kicks_ass#with_plugins(["closetag","detectindent"])
+" -------------------------------------------------------
+" CHECK REQUIRED DEPENDENCIES
+" -------------------------------------------------------
+if !executable("git")
+  echo "Remember to install git."
+endif
+
+if !executable("ctags")
+  echo "Remember to install for autocomplete support."
+endif
+
+if !executable("fzf") || !executable("rg")
+  echo "Remember to install fzf and ripgrep for file searching."
+endif
+
+" -------------------------------------------------------
+" LOAD PLUGINS
+" -------------------------------------------------------
+call vim_kicks_ass#with_plugins([
+  \ "misc", "easytags", "taglist",
+  \ "l9", "autocomplpop", "syntastic",
+  \ "fugitive", "autoclose", "markdown",
+  \ "html5", "nerdcommenter", "tabular",
+  \ "closetag", "detectindent", "junegunn/fzf.vim",
+  \ "itchyny/lightline.vim", "scrooloose/nerdtree",
+  \ "sheerun/vim-polyglot", "jcommenter", "endwise",
+  \ ])
+
+" -------------------------------------------------------
+" PLUGIN SETTINGS
+" -------------------------------------------------------
+
+" autocomplpop options
+let g:acp_mappingDriven = 1 " don't autocomplete on backspace
+let g:acp_completeoptPreview = 1 " display function arguments preview
+let g:acp_behaviorKeywordLength = 1 " keyword autocomplete with 1 character
 
 " easytags options to enable/disable features that affect peformance
-let g:easytags_syntax_keyword = 'always'
-let b:easytags_auto_highlight = 0
+let g:easytags_syntax_keyword = 'auto' " Use auto or always (faster)
+let g:easytags_auto_highlight = 1
 let g:easytags_async = 1
+set tags=./tags; " project tags file
+let g:easytags_dynamic_files = 1 " use project tags file if available
+let g:easytags_by_filetype = "~/.vim" " generate tag files by file type
 
 " syntastic options
 let g:syntastic_enable_signs=1
@@ -38,89 +71,134 @@ let g:detectindent_preferred_expandtab = 1
 let g:detectindent_preferred_indent = 4
 let g:detectindent_preferred_when_mixed = 1
 
+" lightline options
+let g:lightline = {
+  \ 'active': {
+  \   'left': [
+  \     ['mode', 'paste'],
+  \     ['readonly', 'filename', 'modified'],
+  \     ['syntastic', 'gitbranch']
+  \   ],
+  \   'right': [
+  \     ['lineinfo'],
+  \     ['percent'],
+  \     ['fileformat', 'fileencoding', 'filetype']
+  \   ]
+  \ },
+  \ 'component_function': {
+  \   'gitbranch': "fugitive#statusline",
+  \   'syntastic': "SyntasticStatuslineFlag"
+  \ }
+  \ }
+
 " fix: some weird issues with arrowkeys using autoclose in console
 if !has("gui_running")
     let g:AutoClosePreservDotReg = 0
 endif
 
-" load presets
-call vim_kicks_ass#using_presets("php")
-call vim_kicks_ass#using_presets("javascript")
+" -------------------------------------------------------
+" LOAD PRESETS
+" -------------------------------------------------------
+call vim_kicks_ass#using_presets([
+  \ 'php', 'javascript'
+  \ ])
 
-" load colorschemes
-call vim_kicks_ass#using_colorschemes("jellybeans")
-call vim_kicks_ass#using_colorschemes("molokai")
+" -------------------------------------------------------
+" LOAD COLORSCHEMES
+" -------------------------------------------------------
+call vim_kicks_ass#using_colorschemes([
+  \ "jellybeans", "molokai", "joshdick/onedark.vim",
+  \ ])
 
-" editing options
+" -------------------------------------------------------
+" EDITOR OPTIONS
+" -------------------------------------------------------
 syntax on
+colorscheme onedark
 set t_Co=256 " enable more colors for schemes that require them.
 set ff=unix
 set nowrap
-set backspace=indent,eol,start
+"set backspace=indent,eol,start
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
 set copyindent
 set shiftround
-"set autoindent
+set smartindent
 set smarttab
-set undolevels=1000
+set undolevels=100000
 set number " linenumbering
 set laststatus=2 " always show statusline
-set statusline=%F\ %y%([%R%M]%)\ %{SyntasticStatuslineFlag()}\ %=%{getcwd()}\ %{fugitive#statusline()}
+"set statusline=%F\ %y%([%R%M]%)\ %{SyntasticStatuslineFlag()}\ %=%{getcwd()}\ %{fugitive#statusline()}
 "set visualbell
 "set noerrorbells
-set nobackup
-set noswapfile
 set hlsearch
 set cursorline
-
-" improve performance
-set nocursorcolumn
-set norelativenumber
-syntax sync minlines=500
-let g:loaded_matchparen=1
-set regexpengine=1 " seems to improve performance with cursorline
+set relativenumber
 
 " override line number color to fix jellybeans issues
-highlight LineNr ctermfg=Gray
+"highlight LineNr ctermfg=Gray
 
 " override text selection color to fix jellybeans issues
-highlight Visual ctermbg=DarkGreen ctermfg=White
+"highlight Visual ctermbg=DarkGreen ctermfg=White
 
 " display a right margin
-set colorcolumn=81
-highlight ColorColumn ctermbg=White
+set colorcolumn=81 " position
+"highlight ColorColumn ctermbg=White " set custom color for margin
 
-" enable code completion support
-set omnifunc=syntaxcomplete#Complete
+" -------------------------------------------------------
+" KEY BINDINGS
+" -------------------------------------------------------
+let mapleader = '\'
+let maplocalleader = ','
 
-" bind omni complete to ctrl + space
-function! Auto_complete_string()
-    return "\<C-x>\<C-o>"
-endfunction
-
-inoremap <expr> <Nul> Auto_complete_string()
-inoremap <expr> <C-Space> Auto_complete_string()
-
-" set default colorscheme
-colorscheme molokai
-
-" set key bindings
-let maplocalleader = ","
-
-nnoremap <LocalLeader>s :TlistToggle<CR>
+" show list of symbols
+nnoremap <LocalLeader>l :TlistToggle<CR>
+" goto definition
 nnoremap <LocalLeader>j <C-]>
 nnoremap <LocalLeader>jh <C-W><C-]>
-nnoremap <LocalLeader>d :PhpDoc<CR>
+nnoremap <C-LeftMouse> <C-]>
+nnoremap <C-RightMouse> <C-W><C-]>
+" comment/uncomment
+nnoremap <LocalLeader>c :call NERDComment(0, "toggle")<CR>
+vnoremap <LocalLeader>c :call NERDComment(1, "toggle")<CR>
+inoremap <LocalLeader>c :call NERDComment(0, "toggle")<CR>
+" generate php doc block
+nnoremap <LocalLeader>d :call JCommentWriter()<CR>
+nnoremap <LocalLeader>D :call PhpDoc()<CR>
 nnoremap <LocalLeader>e :Explore<CR>
+" tabs navigation previous/next
 nnoremap <LocalLeader>[ :tabp<CR>
 nnoremap <LocalLeader>] :tabn<CR>
+" save/quit
+nnoremap <LocalLeader>s :w<CR>
 nnoremap <LocalLeader>sq :wq<CR>
-nnoremap <LocalLeader>q :q!<CR>
+nnoremap <LocalLeader>q :q<CR>
+" shift tab unindent
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
+inoremap <S-Tab> <C-d>
+" bind omnicomplete to CTRL+Space (doesn't works)
+inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
+  \ "\<lt>C-n>" :
+  \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+  \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+  \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+inoremap <C-@> <C-Space>
+" search files/content
+nnoremap <LocalLeader>f :Files<CR>
+nnoremap <LocalLeader>F :Rg<Space>
+" toggle search highlight
+nnoremap <LocalLeader>h :set hlsearch!<cr>
+" display directory tree (use o to collapse/uncollapse)
+nnoremap <LocalLeader>t :NERDTreeToggle<CR>
+" php bindings
+nnoremap <Leader>f :call PhpCsFixerFixFile()<CR>
 
-" auto commands
+" -------------------------------------------------------
+" AUTO COMMANDS
+" -------------------------------------------------------
 autocmd BufWritePre * :%s/\s\+$//e " strip trailing spaces
 autocmd BufWritePre * :retab " convert tabs to spaces
 autocmd BufReadPost * :DetectIndent
