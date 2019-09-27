@@ -17,6 +17,10 @@ filetype on
 filetype plugin on
 filetype indent off " disable annoying auto indentation
 
+" for configuration
+let vim_path=expand('<sfile>:p:h')."/.vim"
+let $VIMHOME=vim_path
+
 " -------------------------------------------------------
 " CHECK REQUIRED DEPENDENCIES
 " -------------------------------------------------------
@@ -36,13 +40,14 @@ endif
 " LOAD PLUGINS
 " -------------------------------------------------------
 call vim_kicks_ass#with_plugins([
-  \ "misc", "taglist",
+  \ "misc", "easytags", "taglist",
   \ "l9", "autocomplpop", "syntastic",
   \ "fugitive", "autoclose", "markdown",
   \ "html5", "nerdcommenter", "tabular",
   \ "closetag", "detectindent", "junegunn/fzf.vim",
   \ "itchyny/lightline.vim", "scrooloose/nerdtree",
   \ "sheerun/vim-polyglot", "jcommenter", "endwise",
+  \ "ap/vim-css-color"
   \ ])
 
 " -------------------------------------------------------
@@ -58,15 +63,15 @@ let g:acp_behaviorKeywordLength = 1 " keyword autocomplete with 1 character
 let g:easytags_cmd = 'ctags'
 let g:easytags_syntax_keyword = 'auto' " Use auto or always (faster)
 let g:easytags_auto_update = 1 " automatically generate tags while coding
-let g:easytags_auto_highlight = 1 " can affect performance
+let g:easytags_auto_highlight = 0 " can affect performance
 let g:easytags_async = 1
-if !isdirectory("~/.vim/typetags")
-  call mkdir("~/.vim/typetags", "p")
+if !isdirectory(vim_path."/typetags")
+  call mkdir(vim_path."/typetags", "p")
 endif
 set tags=./tags; " project tags file
 let g:easytags_dynamic_files = 1 " use project tags file if available
-let g:easytags_file = "~/.vim/tags"
-let g:easytags_by_filetype = "~/.vim/typetags" " generate tag files by file type
+let g:easytags_file = vim_path."/tags"
+let g:easytags_by_filetype = vim_path."/typetags" " generate tag files by file type
 " enable tag recursion if inside a repository
 let git_repo = isdirectory(getcwd().'/'.".git")
 let fossil_repo = file_readable(getcwd().'/'.".fslckout")
@@ -74,15 +79,6 @@ if git_repo || fossil_repo
   let g:easytags_autorecurse = 1
   echo 'Recursive tags scanning enabled.'
 endif
-let g:easytags_languages = {
-  \   'php': {
-  \     'cmd': g:easytags_cmd,
-  \     'args': ['--fields=+aimlS'],
-  \     'fileoutput_opt': '-f',
-  \     'stdout_opt': '-f-',
-  \     'recurse_flag': '-R'
-  \   }
-  \}
 
 " syntastic options
 let g:syntastic_enable_signs=1
@@ -135,11 +131,18 @@ call vim_kicks_ass#using_colorschemes([
 " -------------------------------------------------------
 " EDITOR OPTIONS
 " -------------------------------------------------------
+
+" create the swap files directory
+if !isdirectory(vim_path."/swap")
+  call mkdir(vim_path."/swap", "p")
+endif
+
 syntax on
 colorscheme onedark
 set t_Co=256 " enable more colors for schemes that require them.
 set ff=unix
 set nowrap
+set directory=$VIMHOME/swap//
 "set backspace=indent,eol,start
 set tabstop=4
 set softtabstop=4
@@ -156,6 +159,8 @@ set hlsearch
 set cursorline
 set relativenumber
 set colorcolumn=81     " right margin position
+set mouse=a            " enable mouse
+set completeopt=menuone,longest,popup,noselect,noinsert
 
 " -------------------------------------------------------
 " KEY BINDINGS

@@ -124,3 +124,6 @@
 [submodule "plugins/mustache"]
 	path = plugins/mustache
 	url = https://github.com/mustache/vim-mustache-handlebars.git
+[submodule "plugins/vim-css-color"]
+	path = plugins/vim-css-color
+	url = https://git::@github.com/ap/vim-css-color.git
