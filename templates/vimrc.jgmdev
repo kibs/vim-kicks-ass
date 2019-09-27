@@ -54,14 +54,35 @@ let g:acp_mappingDriven = 1 " don't autocomplete on backspace
 let g:acp_completeoptPreview = 1 " display function arguments preview
 let g:acp_behaviorKeywordLength = 1 " keyword autocomplete with 1 character
 
-" easytags options to enable/disable features that affect peformance
+" easytags option
+let g:easytags_cmd = 'ctags'
 let g:easytags_syntax_keyword = 'auto' " Use auto or always (faster)
-let g:easytags_auto_update = 1
-let g:easytags_auto_highlight = 1
+let g:easytags_auto_update = 1 " automatically generate tags while coding
+let g:easytags_auto_highlight = 1 " can affect performance
 let g:easytags_async = 1
+if !isdirectory("~/.vim/typetags")
+  call mkdir("~/.vim/typetags", "p")
+endif
 set tags=./tags; " project tags file
 let g:easytags_dynamic_files = 1 " use project tags file if available
-let g:easytags_by_filetype = "~/.vim" " generate tag files by file type
+let g:easytags_file = "~/.vim/tags"
+let g:easytags_by_filetype = "~/.vim/typetags" " generate tag files by file type
+" enable tag recursion if inside a repository
+let git_repo = isdirectory(getcwd().'/'.".git")
+let fossil_repo = file_readable(getcwd().'/'.".fslckout")
+if git_repo || fossil_repo
+  let g:easytags_autorecurse = 1
+  echo 'Recursive tags scanning enabled.'
+endif
+let g:easytags_languages = {
+  \   'php': {
+  \     'cmd': g:easytags_cmd,
+  \     'args': ['--fields=+aimlS'],
+  \     'fileoutput_opt': '-f',
+  \     'stdout_opt': '-f-',
+  \     'recurse_flag': '-R'
+  \   }
+  \}
 
 " syntastic options
 let g:syntastic_enable_signs=1
