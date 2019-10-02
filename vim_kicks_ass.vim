@@ -160,6 +160,10 @@ function s:add(dirs, root, type)
     if index(paths, path) == -1
       let paths = insert(paths, path)
     endif
+    let after_path = path."/"."after"
+    if isdirectory(after_path)
+      let paths = insert(paths, after_path)
+    endif
   endfor
   let &rtp = s:join(paths)
 endfunction
