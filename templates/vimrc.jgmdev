@@ -36,28 +36,76 @@ if !executable("fzf") || !executable("rg")
   echo "Remember to install fzf and ripgrep for file searching."
 endif
 
+if !executable("php-cs-fixer")
+    echo "Remember to install php-cs-fixer."
+endif
+
 " -------------------------------------------------------
 " LOAD PLUGINS
 " -------------------------------------------------------
 call vim_kicks_ass#with_plugins([
-  \ "misc", "easytags", "taglist",
-  \ "l9", "autocomplpop", "syntastic",
-  \ "fugitive", "autoclose", "markdown",
-  \ "html5", "nerdcommenter", "tabular",
-  \ "closetag", "detectindent", "junegunn/fzf.vim",
-  \ "itchyny/lightline.vim", "scrooloose/nerdtree",
-  \ "sheerun/vim-polyglot", "jcommenter", "endwise",
-  \ "ap/vim-css-color"
+  \ 'misc', 'easytags', 'taglist',
+  \ 'l9', 'autocomplpop', 'syntastic',
+  \ 'fugitive', 'autoclose', 'markdown',
+  \ 'html5', 'nerdcommenter', 'tabular',
+  \ 'closetag', 'detectindent', 'junegunn/fzf.vim',
+  \ 'itchyny/lightline.vim', 'scrooloose/nerdtree',
+  \ 'sheerun/vim-polyglot', 'jcommenter', 'endwise',
+  \ 'ap/vim-css-color', 'prabirshrestha/async.vim', 'prabirshrestha/vim-lsp',
+  \ 'php-doc', 'php-fix-html-indent', 'php-cs-fixer', 'php-namespace',
+  \ 'mikoto2000/buffer_selector.vim'
+  \ ])
+
+" -------------------------------------------------------
+" LOAD PRESETS
+" -------------------------------------------------------
+call vim_kicks_ass#using_presets([
+  \ 'javascript'
   \ ])
 
 " -------------------------------------------------------
 " PLUGIN SETTINGS
 " -------------------------------------------------------
 
+" vim-lsp
+let g:lsp_signs_enabled = 0
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_insert_text_enabled = 0
+let g:lsp_preview_autoclose = 0
+
+" Enable intelephense for vim-lsp or newer php-complete
+" npm install -g intelephense
+if executable("intelephense")
+  if !isdirectory(vim_path."/intelephense")
+    call mkdir(vim_path."/intelephense", "p")
+  endif
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'intelephense',
+    \ 'cmd': {server_info->['intelephense', '--stdio']},
+    \ 'initialization_options': {"storagePath": vim_path."/intelephense"},
+    \ 'whitelist': ['php'],
+    \ })
+  autocmd FileType php setlocal omnifunc=lsp#complete
+else
+  " php-complete : autocompletion support
+  " enable php-complete for newer code completion code base
+  call vim_kicks_ass#with_plugins('php-complete')
+  let g:phpcomplete_parse_docblock_comments = 1
+endif
+
+" npm install -g vscode-css-languageserver-bin
+if executable('css-languageserver')
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'css-languageserver',
+    \ 'cmd': {server_info->['css-languageserver', '--stdio']},
+    \ 'whitelist': ['css', 'less', 'sass'],
+    \ })
+endif
+
 " autocomplpop options
 let g:acp_mappingDriven = 1 " don't autocomplete on backspace
+let g:acp_behaviorKeywordLength = 2 " keyword autocomplete with 1 character
 let g:acp_completeoptPreview = 1 " display function arguments preview
-let g:acp_behaviorKeywordLength = 1 " keyword autocomplete with 1 character
 
 " easytags option
 let g:easytags_cmd = 'ctags'
@@ -77,7 +125,7 @@ let git_repo = isdirectory(getcwd().'/'.".git")
 let fossil_repo = file_readable(getcwd().'/'.".fslckout")
 if git_repo || fossil_repo
   let g:easytags_autorecurse = 1
-  echo 'Recursive tags scanning enabled.'
+  "echo 'Recursive tags scanning enabled.'
 endif
 
 " syntastic options
@@ -113,13 +161,6 @@ let g:lightline = {
 if !has("gui_running")
     let g:AutoClosePreservDotReg = 0
 endif
-
-" -------------------------------------------------------
-" LOAD PRESETS
-" -------------------------------------------------------
-call vim_kicks_ass#using_presets([
-  \ 'php', 'javascript'
-  \ ])
 
 " -------------------------------------------------------
 " LOAD COLORSCHEMES
@@ -160,7 +201,9 @@ set cursorline
 set relativenumber
 set colorcolumn=81     " right margin position
 set mouse=a            " enable mouse
-set completeopt=menuone,longest,popup,noselect,noinsert
+set completeopt=menuone,longest,preview,noselect,noinsert
+set visualbell         " disable annoying error sound
+set t_vb=
 
 " -------------------------------------------------------
 " KEY BINDINGS
@@ -168,10 +211,14 @@ set completeopt=menuone,longest,popup,noselect,noinsert
 let mapleader = '\'
 let maplocalleader = ','
 
+" Document traversing
+nnoremap <C-b> :call buffer_selector#OpenBufferSelector()<CR>
+inoremap <C-b> <C-O>:call buffer_selector#OpenBufferSelector()<CR>
 " show list of symbols
 nnoremap <LocalLeader>l :TlistToggle<CR>
 " goto definition
-nnoremap <LocalLeader>j <C-]>
+nnoremap <C-]> :LspDefinition<CR>
+inoremap <C-]> <C-O>:LspDefinition<CR>
 nnoremap <LocalLeader>jh <C-W><C-]>
 nnoremap <C-LeftMouse> <C-]>
 nnoremap <C-RightMouse> <C-W><C-]>
@@ -201,6 +248,11 @@ inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
   \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
   \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
 inoremap <C-@> <C-Space>
+" Show function signature
+nnoremap <C-S-p> :LspHover<CR>
+inoremap <C-S-p> <C-O>:LspHover<CR>
+nnoremap <C-S-d> :LspPeekDefinition<CR>
+inoremap <C-S-d> <C-O>:LspPeekDefinition<CR>
 " search files/content
 nnoremap <LocalLeader>f :Files<CR>
 nnoremap <LocalLeader>F :Rg<Space>
