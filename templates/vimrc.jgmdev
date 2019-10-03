@@ -53,7 +53,7 @@ call vim_kicks_ass#with_plugins([
   \ 'sheerun/vim-polyglot', 'jcommenter', 'endwise',
   \ 'ap/vim-css-color', 'prabirshrestha/async.vim', 'prabirshrestha/vim-lsp',
   \ 'php-doc', 'php-fix-html-indent', 'php-cs-fixer', 'php-namespace',
-  \ 'mikoto2000/buffer_selector.vim'
+  \ 'mikoto2000/buffer_selector.vim', 'thaerkh/vim-workspace'
   \ ])
 
 " -------------------------------------------------------
@@ -66,6 +66,9 @@ call vim_kicks_ass#using_presets([
 " -------------------------------------------------------
 " PLUGIN SETTINGS
 " -------------------------------------------------------
+
+" vim-workspace
+let g:workspace_session_directory = vim_path.'/sessions/'
 
 " vim-lsp
 let g:lsp_signs_enabled = 0
@@ -211,6 +214,8 @@ set t_vb=
 let mapleader = '\'
 let maplocalleader = ','
 
+" Workspace session (create or delete a session for current directory)
+nnoremap <leader>s :ToggleWorkspace<CR>
 " Document traversing
 nnoremap <C-b> :call buffer_selector#OpenBufferSelector()<CR>
 inoremap <C-b> <C-O>:call buffer_selector#OpenBufferSelector()<CR>
@@ -225,7 +230,7 @@ nnoremap <C-RightMouse> <C-W><C-]>
 " comment/uncomment
 nnoremap <LocalLeader>c :call NERDComment(0, "toggle")<CR>
 vnoremap <LocalLeader>c :call NERDComment(1, "toggle")<CR>
-inoremap <LocalLeader>c :call NERDComment(0, "toggle")<CR>
+inoremap <C-c> <C-O>:call NERDComment(0, "toggle")<CR>
 " generate php doc block
 nnoremap <LocalLeader>d :call JCommentWriter()<CR>
 nnoremap <LocalLeader>D :call PhpDoc()<CR>
@@ -233,15 +238,22 @@ nnoremap <LocalLeader>e :Explore<CR>
 " tabs navigation previous/next
 nnoremap <LocalLeader>[ :tabp<CR>
 nnoremap <LocalLeader>] :tabn<CR>
+" open files
+nnoremap <LocalLeader>o :edit<Space>
+nnoremap <LocalLeader>O :tabnew<Space>
+nnoremap <LocalLeader>v :vsplit<Space>
+nnoremap <LocalLeader>V :split<Space>
 " save/quit
 nnoremap <LocalLeader>s :w<CR>
 nnoremap <LocalLeader>sq :wq<CR>
 nnoremap <LocalLeader>q :q<CR>
+nnoremap <LocalLeader>Q :qa<CR>
+nnoremap <LocalLeader>x :bd<CR>
 " shift tab unindent
 nnoremap <Tab> >>
 nnoremap <S-Tab> <<
 inoremap <S-Tab> <C-d>
-" bind omnicomplete to CTRL+Space (doesn't works)
+" bind omnicomplete to CTRL+Space (doesn't works in terminal but does on gvim)
 inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
   \ "\<lt>C-n>" :
   \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
