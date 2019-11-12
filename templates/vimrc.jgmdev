@@ -86,7 +86,17 @@ if executable("intelephense")
   au User lsp_setup call lsp#register_server({
     \ 'name': 'intelephense',
     \ 'cmd': {server_info->['intelephense', '--stdio']},
-    \ 'initialization_options': {"storagePath": vim_path."/intelephense"},
+    \ 'initialization_options'" {"storagePath": vim_path."/intelephense"},
+    \ 'whitelist': ['php'],
+    \ })
+  autocmd FileType php setlocal omnifunc=lsp#complete
+" Enable php-language-server for vim-lsp
+" git clone https://github.com/felixfbecker/php-language-server ~/.vim/php-language-server
+" cd ~/.vim/php-language-server/ && composer install && composer run-script parse-stubs
+elseif isdirectory(vim_path."/php-language-server")
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'php-language-server',
+    \ 'cmd': {server_info->['php', expand("~/.vim/php-language-server/bin/php-language-server.php")]},
     \ 'whitelist': ['php'],
     \ })
   autocmd FileType php setlocal omnifunc=lsp#complete
