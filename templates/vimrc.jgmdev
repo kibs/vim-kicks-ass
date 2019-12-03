@@ -37,7 +37,7 @@ if !executable("fzf") || !executable("rg")
 endif
 
 if !executable("php-cs-fixer")
-    echo "Remember to install php-cs-fixer."
+  echo "Remember to install php-cs-fixer."
 endif
 
 " -------------------------------------------------------
@@ -86,7 +86,7 @@ if executable("intelephense")
   au User lsp_setup call lsp#register_server({
     \ 'name': 'intelephense',
     \ 'cmd': {server_info->['intelephense', '--stdio']},
-    \ 'initialization_options'" {"storagePath": vim_path."/intelephense"},
+    \ 'initialization_options': {"storagePath": expand("~/.vim/intelephense")},
     \ 'whitelist': ['php'],
     \ })
   autocmd FileType php setlocal omnifunc=lsp#complete
@@ -173,7 +173,7 @@ let g:lightline = {
 
 " fix: some weird issues with arrowkeys using autoclose in console
 if !has("gui_running")
-    let g:AutoClosePreservDotReg = 0
+  let g:AutoClosePreservDotReg = 0
 endif
 
 " -------------------------------------------------------
@@ -260,6 +260,7 @@ nnoremap <LocalLeader>sq :wq<CR>
 nnoremap <LocalLeader>q :q<CR>
 nnoremap <LocalLeader>Q :qa<CR>
 nnoremap <LocalLeader>x :BD<CR>
+nnoremap <LocalLeader>X :tabclose<CR>
 " shift tab unindent
 nnoremap <Tab> >>
 nnoremap <S-Tab> <<
