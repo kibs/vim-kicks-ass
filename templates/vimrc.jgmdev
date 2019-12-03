@@ -45,7 +45,7 @@ endif
 " -------------------------------------------------------
 call vim_kicks_ass#with_plugins([
   \ 'misc', 'easytags', 'taglist',
-  \ 'l9', 'autocomplpop', 'syntastic',
+  \ 'l9', 'syntastic',
   \ 'fugitive', 'autoclose', 'markdown',
   \ 'html5', 'nerdcommenter', 'tabular',
   \ 'closetag', 'detectindent', 'junegunn/fzf.vim',
@@ -57,6 +57,11 @@ call vim_kicks_ass#with_plugins([
   \ 'qpkorr/vim-bufkill'
   \ ])
 
+call vim_kicks_ass#with_plugins([
+  \ 'prabirshrestha/asyncomplete.vim',
+  \ 'prabirshrestha/asyncomplete-lsp.vim',
+  \ ])
+
 " -------------------------------------------------------
 " LOAD PRESETS
 " -------------------------------------------------------
@@ -65,11 +70,57 @@ call vim_kicks_ass#using_presets([
   \ ])
 
 " -------------------------------------------------------
+" Autocompletion backends for asynccomplete
+" -------------------------------------------------------
+
+" Keyword completion
+call vim_kicks_ass#with_plugins([
+  \ 'prabirshrestha/asyncomplete-buffer.vim',
+  \ ])
+
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+  \ 'name': 'buffer',
+  \ 'whitelist': ['*'],
+  \ 'blacklist': ['go'],
+  \ 'completor': function('asyncomplete#sources#buffer#completor'),
+  \ 'config': {
+  \    'max_buffer_size': -1,
+  \  },
+  \ }))
+
+" File name completion
+call vim_kicks_ass#with_plugins([
+  \ 'prabirshrestha/asyncomplete-file.vim'
+  \ ])
+
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+  \ 'name': 'file',
+  \ 'whitelist': ['*'],
+  \ 'priority': 10,
+  \ 'completor': function('asyncomplete#sources#file#completor')
+  \ }))
+
+" Omni completion
+call vim_kicks_ass#with_plugins([
+  \ 'yami-beta/asyncomplete-omni.vim'
+  \ ])
+
+call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
+  \ 'name': 'omni',
+  \ 'whitelist': ['*'],
+  \ 'blacklist': ['c', 'cpp', 'html', 'php', 'css', 'less', 'sass'],
+  \ 'completor': function('asyncomplete#sources#omni#completor')
+  \  }))
+
+" -------------------------------------------------------
 " PLUGIN SETTINGS
 " -------------------------------------------------------
 
 " vim-workspace
 let g:workspace_session_directory = vim_path.'/sessions/'
+
+" asynccomplete
+let g:asyncomplete_auto_popup = 1
 
 " vim-lsp
 let g:lsp_signs_enabled = 0
@@ -89,7 +140,7 @@ if executable("intelephense")
     \ 'initialization_options': {"storagePath": expand("~/.vim/intelephense")},
     \ 'whitelist': ['php'],
     \ })
-  autocmd FileType php setlocal omnifunc=lsp#complete
+  "autocmd FileType php setlocal omnifunc=lsp#complete
 " Enable php-language-server for vim-lsp
 " git clone https://github.com/felixfbecker/php-language-server ~/.vim/php-language-server
 " cd ~/.vim/php-language-server/ && composer install && composer run-script parse-stubs
@@ -99,7 +150,7 @@ elseif isdirectory(vim_path."/php-language-server")
     \ 'cmd': {server_info->['php', expand("~/.vim/php-language-server/bin/php-language-server.php")]},
     \ 'whitelist': ['php'],
     \ })
-  autocmd FileType php setlocal omnifunc=lsp#complete
+  "autocmd FileType php setlocal omnifunc=lsp#complete
 else
   " php-complete : autocompletion support
   " enable php-complete for newer code completion code base
@@ -111,9 +162,12 @@ endif
 if executable('css-languageserver')
   au User lsp_setup call lsp#register_server({
     \ 'name': 'css-languageserver',
-    \ 'cmd': {server_info->['css-languageserver', '--stdio']},
+    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'css-languageserver --stdio']},
     \ 'whitelist': ['css', 'less', 'sass'],
     \ })
+  "autocmd FileType css setlocal omnifunc=lsp#complete
+  "autocmd FileType less setlocal omnifunc=lsp#complete
+  "autocmd FileType sass setlocal omnifunc=lsp#complete
 endif
 
 " autocomplpop options
