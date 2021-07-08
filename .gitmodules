@@ -57,13 +57,73 @@
 	url = https://github.com/vim-scripts/taglist.vim.git
 [submodule "plugins/easymotion"]
 	path = plugins/easymotion
-	url = https://github.com/Lokaltog/vim-easymotion
+	url = https://github.com/Lokaltog/vim-easymotion.git
 [submodule "plugins/sparkup"]
 	path = plugins/sparkup
 	url = https://github.com/bingaman/vim-sparkup.git
-[submodule "plugins/mustache"]
-	path = plugins/mustache
-	url = git@github.com:valinorsgatekeeper/vim-kicks-ass.git
 [submodule "plugins/coffee-script"]
 	path = plugins/coffee-script
 	url = https://github.com/kchmck/vim-coffee-script.git
+[submodule "plugins/php-namespace"]
+	path = plugins/php-namespace
+	url = https://github.com/arnaud-lb/vim-php-namespace.git
+[submodule "plugins/php-cs-fixer"]
+	path = plugins/php-cs-fixer
+	url = https://github.com/stephpy/vim-php-cs-fixer.git
+[submodule "plugins/php-complete"]
+	path = plugins/php-complete
+	url = https://github.com/shawncplus/phpcomplete.vim.git
+[submodule "plugins/cpp-complete"]
+	path = plugins/cpp-complete
+	url = https://github.com/vim-scripts/OmniCppComplete.git
+[submodule "plugins/js-jquery"]
+	path = plugins/js-jquery
+	url = https://github.com/itspriddle/vim-jquery.git
+[submodule "plugins/js-jquery-doc"]
+	path = plugins/js-jquery-doc
+	url = https://github.com/lucapette/vim-jquery-doc.git
+[submodule "plugins/easytags"]
+	path = plugins/easytags
+	url = https://github.com/xolox/vim-easytags.git
+[submodule "plugins/misc"]
+	path = plugins/misc
+	url = https://github.com/xolox/vim-misc.git
+[submodule "plugins/autocomplpop"]
+	path = plugins/autocomplpop
+	url = https://github.com/othree/vim-autocomplpop.git
+[submodule "plugins/neocomplete"]
+	path = plugins/neocomplete
+	url = https://github.com/Shougo/neocomplete.vim.git
+[submodule "plugins/html5"]
+	path = plugins/html5
+	url = https://github.com/othree/html5.vim.git
+[submodule "plugins/closetag"]
+	path = plugins/closetag
+	url = https://github.com/docunext/closetag.vim.git
+[submodule "plugins/detectindent"]
+	path = plugins/detectindent
+	url = https://github.com/ciaranm/detectindent
+[submodule "plugins/fzf.vim"]
+	path = plugins/fzf.vim
+	url = https://git::@github.com/junegunn/fzf.vim.git
+[submodule "plugins/lightline.vim"]
+	path = plugins/lightline.vim
+	url = https://git::@github.com/itchyny/lightline.vim.git
+[submodule "plugins/nerdtree"]
+	path = plugins/nerdtree
+	url = https://git::@github.com/scrooloose/nerdtree.git
+[submodule "colors/onedark.vim"]
+	path = colors/onedark.vim
+	url = https://git::@github.com/joshdick/onedark.vim.git
+[submodule "plugins/vim-polyglot"]
+	path = plugins/vim-polyglot
+	url = https://git::@github.com/sheerun/vim-polyglot.git
+[submodule "plugins/vim-json"]
+	path = plugins/vim-json
+	url = https://git::@github.com/elzr/vim-json.git
+[submodule "plugins/mustache"]
+	path = plugins/mustache
+	url = https://github.com/mustache/vim-mustache-handlebars.git
+[submodule "plugins/vim-css-color"]
+	path = plugins/vim-css-color
+	url = https://git::@github.com/ap/vim-css-color.git
